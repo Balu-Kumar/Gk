@@ -3,182 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
+    <title>Zenith's Best Friends</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: lightblue;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .quiz-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 300px;
+            margin: 50px;
+            background-color: #f4f4f4;
         }
-        .question {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        .options input {
-            margin: 10px 0;
+        h1 {
+            color: #333;
         }
         button {
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
         }
-        button:hover {
-            background-color: #45a049;
-        }
-        #thank-you {
-            display: none;
-            font-size: 24px;
+        .maddy { background-color: #4CAF50; color: white; }
+        .tavvika { background-color: #FF5733; color: white; }
+        #message {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <div id="name-input">
-        <h2>Enter your name:</h2>
-        <input type="text" id="name" placeholder="Your Name" />
-        <button onclick="startQuiz()">Start Quiz</button>
-    </div>
-    <div id="quiz" style="display:none;">
-        <h2 class="question"></h2>
-        <div class="options"></div>
-        <button onclick="nextQuestion()">Next Question</button>
-    </div>
-    <div id="thank-you">
-        <h2>Thank you, <span id="username"></span>!</h2>
-        <p>Your participation was appreciated!</p>
-    </div>
-</div>
+    <h1>Welcome to Zenith's Best Friend Messenger! 🎉</h1>
+    <p>Click a button to get your special message!</p>
 
-<script>
-    let questions = [
-        {
-            question: "Rate your friendship on a scale of 1-10",
-            options: [
-                "Option A: 5",
-                "Option B: 7",
-                "Option C: 10",
-                "Option D: Can't rate friendship"
-            ],
-            correctAnswer: [2, 3]  // Option C and D are correct
-        },
-        {
-            question: "What is the capital of India?",
-            options: [
-                "Option A: Delhi",
-                "Option B: Mumbai",
-                "Option C: Kolkata",
-                "Option D: Chennai"
-            ],
-            correctAnswer: [0]  // Option A is correct
-        },
-        {
-            question: "Who is known as the Father of the Nation?",
-            options: [
-                "Option A: Jawaharlal Nehru",
-                "Option B: Mahatma Gandhi",
-                "Option C: Sardar Patel",
-                "Option D: Subhash Chandra Bose"
-            ],
-            correctAnswer: [1]  // Option B is correct
-        },
-        {
-            question: "What is the largest state in India by area?",
-            options: [
-                "Option A: Uttar Pradesh",
-                "Option B: Madhya Pradesh",
-                "Option C: Rajasthan",
-                "Option D: Maharashtra"
-            ],
-            correctAnswer: [2]  // Option C is correct
-        },
-        {
-            question: "What is the national flower of India?",
-            options: [
-                "Option A: Rose",
-                "Option B: Lotus",
-                "Option C: Jasmine",
-                "Option D: Sunflower"
-            ],
-            correctAnswer: [1]  // Option B is correct
+    <button class="maddy" onclick="showMessage('Maddy')">Message for Maddy</button>
+    <button class="tavvika" onclick="showMessage('Tavvika')">Message for Tavvika</button>
+
+    <p id="message"></p>
+
+    <script>
+        function showMessage(friend) {
+            const messages = {
+                "Maddy": [
+                    "Maddy, stop analyzing and start enjoying!",
+                    "Maddy, did you just visualize our friendship in a pie chart? 🥧",
+                    "Maddy, your data says we are best friends for life!"
+                ],
+                "Tavvika": [
+                    "Tavvika, what are you plotting now? 😈",
+                    "Tavvika, I know that smirk means trouble!",
+                    "Tavvika, you are the 'error' in my perfect plan! 🤯"
+                ]
+            };
+            const randomMessage = messages[friend][Math.floor(Math.random() * messages[friend].length)];
+            document.getElementById("message").innerText = randomMessage;
         }
-    ];
-    let currentQuestionIndex = 0;
-    let userName = '';
-    
-    function startQuiz() {
-        userName = document.getElementById('name').value;
-        if (userName.trim() === "") {
-            alert("Please enter your name.");
-            return;
-        }
-        document.getElementById('username').innerText = userName;
-        document.getElementById('name-input').style.display = 'none';
-        document.getElementById('quiz').style.display = 'block';
-        showQuestion();
-    }
-
-    function showQuestion() {
-        let question = questions[currentQuestionIndex];
-        document.querySelector('.question').textContent = question.question;
-        let optionsDiv = document.querySelector('.options');
-        optionsDiv.innerHTML = '';
-        
-        question.options.forEach((option, index) => {
-            let optionElement = document.createElement('div');
-            optionElement.innerHTML = `
-                <input type="checkbox" id="option${index}" />
-                <label for="option${index}">${option}</label>
-            `;
-            optionsDiv.appendChild(optionElement);
-        });
-    }
-
-    function nextQuestion() {
-        let question = questions[currentQuestionIndex];
-        let selectedOptions = [];
-        question.options.forEach((option, index) => {
-            if (document.getElementById(`option${index}`).checked) {
-                selectedOptions.push(index);
-            }
-        });
-
-        let isCorrect = selectedOptions.every(option => question.correctAnswer.includes(option));
-        
-        if (isCorrect) {
-            alert("Correct answer! Moving to next question.");
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                endQuiz();
-            }
-        } else {
-            alert("Incorrect answer! Try again.");
-        }
-    }
-
-    function endQuiz() {
-        document.getElementById('quiz').style.display = 'none';
-        document.getElementById('thank-you').style.display = 'block';
-    }
-</script>
+    </script>
 
 </body>
 </html>
