@@ -1,32 +1,55 @@
-import random
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith's Best Friends</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .maddy { background-color: #4CAF50; color: white; }
+        .tavvika { background-color: #FF5733; color: white; }
+        #message {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
 
-# Friend data
-friends = {
-    "Maddy": {
-        "role": "Data Analyst",
-        "messages": [
-            "Maddy, stop analyzing and start enjoying!",
-            "Maddy, did you just visualize our friendship in a pie chart? 🥧",
-            "Maddy, your data says we are best friends for life!"
-        ]
-    },
-    "Tavvika": {
-        "role": "Mischief Master",
-        "messages": [
-            "Tavvika, what are you plotting now? 😈",
-            "Tavvika, I know that smirk means trouble!",
-            "Tavvika, you are the 'error' in my perfect plan! 🤯"
-        ]
-    }
-}
+    <h1>Welcome to Zenith's Best Friend Messenger! 🎉</h1>
+    <p>Click a button to get your special message!</p>
 
-def generate_message(name):
-    """Generate a fun message for a given friend."""
-    if name in friends:
-        return random.choice(friends[name]["messages"])
-    return f"{name}, you are awesome too!"
+    <button class="maddy" onclick="showMessage('Maddy')">Message for Maddy</button>
+    <button class="tavvika" onclick="showMessage('Tavvika')">Message for Tavvika</button>
 
-if __name__ == "__main__":
-    print("Welcome to Zenith's Best Friend Messenger!")
-    name = input("Enter your name (Maddy/Tavvika): ").strip()
-    print(generate_message(name))
+    <p id="message"></p>
+
+    <script>
+        function showMessage(friend) {
+            const messages = {
+                "Maddy": [
+                    "Maddy, stop analyzing and start enjoying!",
+                    "Maddy, did you just visualize our friendship in a pie chart? 🥧",
+                    "Maddy, your data says we are best friends for life!"
+                ],
+                "Tavvika": [
+                    "Tavvika, what are you plotting now? 😈",
+                    "Tavvika, I know that smirk means trouble!",
+                    "Tavvika, you are the 'erro
